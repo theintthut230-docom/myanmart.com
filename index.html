@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Myan Mart – AI-Powered E-Commerce Storefront</title>
+
+  <!-- Google Fonts: Inter, Outfit, and Noto Sans Myanmar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="top-announcement">
+    <span data-i18n="announcement">Free delivery across Yangon & Mandalay for orders over 50,000 Ks</span>
+  </aside>
+
+  <!-- Sticky Global Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- Logo -->
+      <a href="#" class="logo-area" title="Myan Mart Home">
+        <span>🇲🇲 Myan Mart</span>
+        <span class="logo-badge">AI 2.0</span>
+      </a>
+
+      <!-- Omnibox Search Bar with AI & Visual Search -->
+      <div class="search-omnibox-container">
+        <div class="search-omnibox">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="mainSearchInput" class="search-input"
+            placeholder="Search products, brands, or ask AI..." data-i18n="searchPlaceholder" autocomplete="off" />
+          <div class="search-actions">
+            <!-- Camera Visual Search Trigger -->
+            <button type="button" class="btn-icon-search" onclick="openVisualSearchModal()"
+              title="Search by Photo / Image">
+              📷
+            </button>
+            <!-- Direct Ask AI Action -->
+            <button type="button" class="btn-ask-ai-search"
+              onclick="openAiChatWithQuery(document.getElementById('mainSearchInput').value || 'Recommend best deals')">
+              <span>✨</span>
+              <span data-i18n="askAiBtn">Ask AI</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Header Utilities -->
+      <div class="header-actions">
+        <!-- Language Switcher -->
+        <button type="button" class="lang-switch-btn" id="langSwitchBtn" onclick="toggleLanguage()">
+          🌐 မြန်မာ
+        </button>
+
+        <!-- Cart Drawer Trigger -->
+        <button type="button" class="cart-btn-trigger" onclick="openCartDrawer()">
+          <span>🛒</span>
+          <span data-i18n="cart">Cart</span>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Secondary Category Navigation -->
+  <nav class="category-nav">
+    <div class="container category-nav-inner">
+      <button class="cat-chip active" data-cat="all" data-i18n="allCategories">All Categories</button>
+      <button class="cat-chip" data-cat="electronics" data-i18n="electronics">📱 Electronics</button>
+      <button class="cat-chip" data-cat="fashion" data-i18n="fashion">👗 Fashion</button>
+      <button class="cat-chip" data-cat="beauty" data-i18n="beauty">✨ Beauty & Care</button>
+      <button class="cat-chip" data-cat="home" data-i18n="home">🏡 Home & Living</button>
+      <button class="cat-chip" data-cat="groceries" data-i18n="groceries">🍵 Groceries</button>
+      <button class="cat-chip" data-cat="toys" data-i18n="toys">🏕️ Toys & Outdoor</button>
+      <button class="cat-chip flash-deal" data-cat="flash" data-i18n="flashDeals">⚡ Flash Deals</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Banner with AI Quick Prompts -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-card">
+          <div class="hero-overlay-graphic"></div>
+          <div class="hero-tag" data-i18n="heroTag">✨ AI-Powered Smart Commerce</div>
+          <h1 class="hero-title" data-i18n="heroTitle">Discover Everything in Myanmar with Smart AI</h1>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">
+            Chat with our AI Shopping Concierge, search with photos, and pay effortlessly via KBZPay, WavePay, and Cash
+            on Delivery.
+          </p>
+
+          <!-- Quick Prompt Pills -->
+          <div class="hero-prompt-chips">
+            <span class="prompt-label" data-i18n="heroPromptLabel">Popular AI Prompts:</span>
+            <button class="prompt-pill-btn" onclick="openAiChatWithQuery('Find me lightweight laptops for work')">
+              💻 Lightweight Laptops
+            </button>
+            <button class="prompt-pill-btn" onclick="openAiChatWithQuery('Best running shoes under 400,000 Ks')">
+              👟 Running Shoes
+            </button>
+            <button class="prompt-pill-btn" onclick="openAiChatWithQuery('Show me authentic Shan Green Tea')">
+              🍵 Shan Organic Tea
+            </button>
+            <button class="prompt-pill-btn" onclick="openAiChatWithQuery('What products are under 50,000 Ks?')">
+              🏷️ Under 50,000 Ks
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Catalog Section -->
+    <section class="catalog-section">
+      <div class="container">
+        <!-- Section Header Row -->
+        <div class="section-header-row">
+          <div class="section-title-wrap">
+            <h2 data-i18n="allProductsTitle">Curated Products & Smart Matches</h2>
+            <p id="productCountSpan">Loading products...</p>
+          </div>
+          <div class="catalog-controls">
+            <select id="sortSelect" class="filter-select">
+              <option value="recommended">Featured / AI Recommended</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Highest Customer Rating</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Dynamic Grid -->
+        <div class="products-grid" id="productsGrid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       AI Shopping Assistant Floating Widget
+       ========================================================================== -->
+  <div class="ai-assistant-widget">
+    <!-- Collapsible Chat Window -->
+    <div class="ai-chat-window" id="aiChatWindow">
+      <div class="ai-chat-header">
+        <div class="ai-header-info">
+          <div class="ai-avatar">🤖</div>
+          <div class="ai-header-text">
+            <h3>Myan Mart AI Concierge</h3>
+            <span><span class="status-online-dot"></span> Online • Semantic Search Active</span>
+          </div>
+        </div>
+        <button class="ai-chat-close" onclick="toggleAiAssistant()" title="Minimize Chat">✕</button>
+      </div>
+
+      <!-- Chat Messages Scroll Area -->
+      <div class="ai-messages-area" id="aiMessagesArea">
+        <div class="chat-bubble assistant">
+          Mingalarbar! 🙏 I am your Myan Mart AI Shopping Assistant. Looking for electronics, shoes, tea, or beauty
+          deals today?
+        </div>
+      </div>
+
+      <!-- Interactive Quick Prompt Chips inside Chat -->
+      <div class="chat-quick-prompts">
+        <button class="chip-ai-quick" onclick="openAiChatWithQuery('Best laptops for students')">💻 Laptops</button>
+        <button class="chip-ai-quick" onclick="openAiChatWithQuery('Show me products under 50,000 Ks')">🏷️ Under
+          50K</button>
+        <button class="chip-ai-quick" onclick="openAiChatWithQuery('Natural skincare products')">✨ Skincare</button>
+        <button class="chip-ai-quick" onclick="openAiChatWithQuery('Camping gear')">🏕️ Outdoor</button>
+      </div>
+
+      <!-- Chat Input Form -->
+      <form class="ai-input-form" id="aiChatForm">
+        <input type="text" id="aiInputField" class="ai-input-field" placeholder="Type your question or budget..."
+          autocomplete="off" />
+        <button type="submit" class="ai-send-btn" title="Send Query">➔</button>
+      </form>
+    </div>
+
+    <!-- Floating Trigger Bubble -->
+    <button class="ai-bubble-trigger" id="aiBubbleTrigger" onclick="toggleAiAssistant()">
+      <span class="ai-pulse-dot"></span>
+      <span>💬 Ask Myan Mart AI</span>
+    </button>
+  </div>
+
+  <!-- ==========================================================================
+       Slide-Over Shopping Cart Drawer
+       ========================================================================== -->
+  <div class="cart-drawer-overlay" id="cartOverlay" onclick="if(event.target === this) closeCartDrawer()">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h3 data-i18n="cartTitle">Your Shopping Cart</h3>
+        <button onclick="closeCartDrawer()"
+          style="font-size: 1.25rem; color: var(--text-muted); cursor: pointer;">✕</button>
+      </div>
+
+      <div class="cart-items-list" id="cartItemsList">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-subtotal-row">
+          <span data-i18n="subtotal">Subtotal</span>
+          <span id="cartSubtotal">0 Ks</span>
+        </div>
+        <div class="cart-subtotal-row">
+          <span data-i18n="deliveryFee">Delivery Fee</span>
+          <span id="cartDelivery">0 Ks</span>
+        </div>
+        <div class="cart-total-row">
+          <span data-i18n="total">Total</span>
+          <span id="cartTotal">0 Ks</span>
+        </div>
+        <button class="btn-checkout-proceed" onclick="openCheckoutModal()">
+          <span>💳</span>
+          <span data-i18n="checkoutBtn">Proceed to Checkout</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Localized Checkout Modal (KBZPay, WavePay, COD)
+       ========================================================================== -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 data-i18n="checkoutTitle">Complete Your Order</h3>
+        <button onclick="closeCheckoutModal()"
+          style="font-size: 1.25rem; color: var(--text-muted); cursor: pointer;">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="processCheckoutOrder(event)">
+          <div class="form-group">
+            <label class="form-label">Recipient Name</label>
+            <input type="text" class="form-input" required placeholder="Daw Khin Myat Noe" value="Ko Min Thant" />
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Phone Number (SMS OTP)</label>
+              <input type="tel" class="form-input" required placeholder="09-xxxxxxxxx" value="09795551234" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Township / City</label>
+              <select class="form-select">
+                <option>Kamayut, Yangon</option>
+                <option>Bahan, Yangon</option>
+                <option>Hledan, Yangon</option>
+                <option>Sanchaung, Yangon</option>
+                <option>Chanayethazan, Mandalay</option>
+                <option>Pyin Oo Lwin</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Delivery Street Address</label>
+            <input type="text" class="form-input" required placeholder="Building No., Street, Ward"
+              value="No. 42, Inya Road" />
+          </div>
+
+          <!-- Myanmar Payment Selector -->
+          <label class="form-label" style="margin-top: 1.25rem;">Select Payment Method</label>
+          <div class="payment-methods-grid">
+            <div class="payment-tab active" data-method="kbzpay" onclick="selectPaymentMethod('kbzpay')">
+              <span class="payment-tab-icon">📱</span>
+              <span class="payment-tab-title">KBZPay QR</span>
+            </div>
+            <div class="payment-tab" data-method="wavepay" onclick="selectPaymentMethod('wavepay')">
+              <span class="payment-tab-icon">🟡</span>
+              <span class="payment-tab-title">WavePay</span>
+            </div>
+            <div class="payment-tab" data-method="cod" onclick="selectPaymentMethod('cod')">
+              <span class="payment-tab-icon">💵</span>
+              <span class="payment-tab-title">Cash on Del.</span>
+            </div>
+          </div>
+
+          <!-- Dynamic payment info box -->
+          <div class="payment-detail-box" id="paymentMethodDetailsBox">
+            <!-- Rendered by app.js -->
+          </div>
+
+          <button type="submit" class="btn-checkout-proceed" style="margin-top: 1.25rem;">
+            <span>🚀</span>
+            <span data-i18n="confirmPayBtn">Confirm & Place Order</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Visual Search Modal
+       ========================================================================== -->
+  <div class="modal-overlay" id="visualSearchModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Multimodal Visual Search</h3>
+        <button onclick="closeVisualSearchModal()"
+          style="font-size: 1.25rem; color: var(--text-muted); cursor: pointer;">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="visual-upload-area" onclick="simulateVisualSearch('fashion', 'Uploaded Shoe Photo')">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📷</div>
+          <h4 style="font-weight: 700; margin-bottom: 0.25rem;">Drop an image or take a photo</h4>
+          <p style="font-size: 0.825rem; color: var(--text-muted);">
+            Our vector model matches visual embeddings with verified catalog items.
+          </p>
+        </div>
+
+        <p style="font-size: 0.8rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.5rem;">
+          Or test with sample catalog photos:
+        </p>
+        <div class="sample-photos-row">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=150&auto=format&fit=crop&q=80"
+            alt="Sneaker" class="sample-photo-thumb" title="Search for Red Running Shoes"
+            onclick="simulateVisualSearch('fashion', 'Red Nike Shoes')" />
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=150&auto=format&fit=crop&q=80"
+            alt="Laptop" class="sample-photo-thumb" title="Search for Laptops"
+            onclick="simulateVisualSearch('electronics', 'Apple Laptop')" />
+          <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=150&auto=format&fit=crop&q=80"
+            alt="Skincare" class="sample-photo-thumb" title="Search for Skincare Products"
+            onclick="simulateVisualSearch('beauty', 'Snail Mucin')" />
+          <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=150&auto=format&fit=crop&q=80"
+            alt="Tea" class="sample-photo-thumb" title="Search for Organic Green Tea"
+            onclick="simulateVisualSearch('groceries', 'Shan Green Tea')" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Quick View PDP Modal
+       ========================================================================== -->
+  <div class="modal-overlay" id="quickViewModal">
+    <div class="modal-container" style="max-width: 720px;">
+      <div class="modal-header">
+        <h3>Product Details & AI Analysis</h3>
+        <button onclick="closeQuickView()"
+          style="font-size: 1.25rem; color: var(--text-muted); cursor: pointer;">✕</button>
+      </div>
+      <div class="modal-body" id="quickViewModalBody">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 style="font-size: 1.25rem; color: #ffffff;">🇲🇲 Myan Mart</h4>
+          <p style="margin-bottom: 1rem; line-height: 1.6;">
+            Myanmar’s next-generation AI-powered retail destination. Offering natural language shopping, visual search,
+            and seamless local payments.
+          </p>
+          <div style="display: flex; gap: 0.5rem; font-size: 0.8rem;">
+            <span style="background: #1e293b; padding: 0.25rem 0.5rem; border-radius: 4px;">KBZPay</span>
+            <span style="background: #1e293b; padding: 0.25rem 0.5rem; border-radius: 4px;">WavePay</span>
+            <span style="background: #1e293b; padding: 0.25rem 0.5rem; border-radius: 4px;">Cash on Delivery</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#" onclick="activeCategory='electronics'; renderProductsGrid(); return false;">Electronics</a>
+            </li>
+            <li><a href="#" onclick="activeCategory='fashion'; renderProductsGrid(); return false;">Fashion & Wear</a>
+            </li>
+            <li><a href="#" onclick="activeCategory='beauty'; renderProductsGrid(); return false;">Beauty & Personal
+                Care</a></li>
+            <li><a href="#" onclick="activeCategory='groceries'; renderProductsGrid(); return false;">Groceries &
+                Tea</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul>
+            <li><a href="#">Track Order Status</a></li>
+            <li><a href="#">Township Shipping Rates</a></li>
+            <li><a href="#">Return & Refund Policy</a></li>
+            <li><a href="#">Merchant Partnership</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>AI Features</h4>
+          <ul>
+            <li><a href="#" onclick="toggleAiAssistant(); return false;">Chat with Assistant</a></li>
+            <li><a href="#" onclick="openVisualSearchModal(); return false;">Multimodal Visual Search</a></li>
+            <li><a href="#">Vector Similarity Search</a></li>
+            <li><a href="#">Customer Sentiment AI</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Myan Mart (myanmart.com). All rights reserved. Strictly Unicode compliant.</div>
+        <p>Developed By Theint Thu (21.10.2026)</p>
+        <div>Engineered for Yangon, Mandalay & nationwide townships.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+
+</html>
