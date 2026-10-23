@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Myan Mart – AI-Powered E-Commerce Storefront</title>
+  <title>Myan Mart – Your Local Market, Made Easy</title>
 
   <!-- Google Fonts: Inter, Outfit, and Noto Sans Myanmar -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,29 +92,65 @@
       <div class="container">
         <div class="hero-card">
           <div class="hero-overlay-graphic"></div>
-          <div class="hero-tag" data-i18n="heroTag">✨ AI-Powered Smart Commerce</div>
-          <h1 class="hero-title" data-i18n="heroTitle">Discover Everything in Myanmar with Smart AI</h1>
-          <p class="hero-subtitle" data-i18n="heroSubtitle">
-            Chat with our AI Shopping Concierge, search with photos, and pay effortlessly via KBZPay, WavePay, and Cash
-            on Delivery.
-          </p>
+          <div class="hero-copy">
+            <div class="hero-tag" data-i18n="heroTag">✨ Your local market, made easy</div>
+            <h1 class="hero-title" data-i18n="heroTitle">A little bit of Myanmar. A whole lot to discover.</h1>
+            <p class="hero-subtitle" data-i18n="heroSubtitle">
+              Find everyday favorites and local treasures with a helpful AI guide, easy township delivery, and the
+              payment options you already trust.
+            </p>
 
-          <!-- Quick Prompt Pills -->
-          <div class="hero-prompt-chips">
-            <span class="prompt-label" data-i18n="heroPromptLabel">Popular AI Prompts:</span>
-            <button class="prompt-pill-btn" onclick="openAiChatWithQuery('Find me lightweight laptops for work')">
-              💻 Lightweight Laptops
-            </button>
-            <button class="prompt-pill-btn" onclick="openAiChatWithQuery('Best running shoes under 400,000 Ks')">
-              👟 Running Shoes
-            </button>
-            <button class="prompt-pill-btn" onclick="openAiChatWithQuery('Show me authentic Shan Green Tea')">
-              🍵 Shan Organic Tea
-            </button>
-            <button class="prompt-pill-btn" onclick="openAiChatWithQuery('What products are under 50,000 Ks?')">
-              🏷️ Under 50,000 Ks
-            </button>
+            <!-- Quick Prompt Pills -->
+            <div class="hero-prompt-chips">
+              <span class="prompt-label" data-i18n="heroPromptLabel">What are you looking for?</span>
+              <button class="prompt-pill-btn" onclick="openAiChatWithQuery('Show me authentic Shan Green Tea')">
+                🍵 Shan tea
+              </button>
+              <button class="prompt-pill-btn" onclick="openAiChatWithQuery('Find me a handwoven Myanmar cotton longyi')">
+                🧵 Handwoven longyi
+              </button>
+              <button class="prompt-pill-btn" onclick="openAiChatWithQuery('What products are under 50,000 Ks?')">
+                🏷️ Under 50,000 Ks
+              </button>
+            </div>
           </div>
+
+          <div class="hero-visual" aria-label="Discover local favorites">
+            <div class="hero-photo-frame">
+              <img class="hero-main-photo"
+                src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=900&auto=format&fit=crop&q=85"
+                alt="Freshly brewed Shan highland tea" />
+              <span class="hero-photo-caption">A taste of the Shan highlands</span>
+            </div>
+            <div class="hero-product-tile hero-product-thanaka">
+              <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=240&auto=format&fit=crop&q=80"
+                alt="" />
+              <span><strong>Thanaka care</strong><small>Made for sunny days</small></span>
+            </div>
+            <div class="hero-product-tile hero-product-longyi">
+              <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=240&auto=format&fit=crop&q=80"
+                alt="" />
+              <span><strong>Woven in Myanmar</strong><small>Everyday comfort</small></span>
+            </div>
+            <div class="hero-seal" aria-hidden="true">Made<br />with<br />Myanmar<br />heart</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="market-promises" aria-label="Shopping with Myan Mart">
+      <div class="container market-promises-inner">
+        <div class="market-promise">
+          <span class="promise-icon">📍</span>
+          <span><strong>Close to home</strong><small>Township delivery across Myanmar</small></span>
+        </div>
+        <div class="market-promise">
+          <span class="promise-icon">🤝</span>
+          <span><strong>Pay your way</strong><small>KBZPay, WavePay or cash on delivery</small></span>
+        </div>
+        <div class="market-promise">
+          <span class="promise-icon">✨</span>
+          <span><strong>A smarter way to shop</strong><small>Ask, search, or find it by photo</small></span>
         </div>
       </div>
     </section>

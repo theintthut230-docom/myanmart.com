@@ -33,20 +33,20 @@ flowchart LR
 
 ### 2.1 Color Palette
 
-The color strategy uses a passionate Myanmar Ruby Red as the primary brand anchor, balanced by Gold/Amber accents for promotions and high ratings, grounded with modern slate neutrals for maximum legibility.
+The color strategy pairs lacquer red and turmeric gold with thanaka-inspired warm neutrals and jade-green trust cues. This palette brings a local market character to the storefront while keeping prices, controls, and bilingual content easy to scan.
 
 | Swatch Role | Color Name | Hex Code | Tailwind Token | Usage Context |
 | :--- | :--- | :--- | :--- | :--- |
-| **Primary** | Ruby Red | `#DC2626` | `brand-600` | Header accents, primary CTAs, AI Assistant trigger, active states |
-| **Primary Hover** | Deep Ruby | `#B91C1C` | `brand-700` | Button hover and pressed states |
-| **Primary Light** | Ruby Tint | `#FEE2E2` | `brand-100` | User message bubbles, badge backgrounds, selected filter tags |
-| **Accent / Trust** | Golden Amber | `#F59E0B` | `amber-500` | Flash sales, star ratings, VIP/Pro badges, AI highlights |
-| **Success / Wallet** | Jade Emerald | `#10B981` | `emerald-500` | In-stock indicators, payment confirmations, discounts |
-| **Background Light** | Pure White | `#FFFFFF` | `background` | Card surfaces, modal sheets |
-| **Surface Muted** | Slate Off-White| `#F8FAFC` | `muted` | Page canvas, secondary panels, neutral card backgrounds |
-| **Border / Divider** | Neutral Border | `#E2E8F0` | `border` | Sub-pixel hairline card borders, structural dividers |
-| **Text Primary** | Deep Slate | `#0F172A` | `foreground` | Primary titles, price numbers, critical labels |
-| **Text Muted** | Slate Grey | `#64748B` | `muted-foreground` | Category breadcrumbs, timestamps, secondary specs |
+| **Primary** | Lacquer Red | `#9C382A` | `brand-600` | Brand accents, primary CTAs, active states |
+| **Primary Hover** | Deep Lacquer | `#7B2C22` | `brand-700` | Button hover and pressed states |
+| **Primary Light** | Lacquer Tint | `#F4D9D1` | `brand-100` | User message bubbles, badge backgrounds, selected states |
+| **Accent / Trust** | Turmeric Gold | `#D39A37` | `amber-500` | Promotions, ratings, highlights and local craft details |
+| **Success / Wallet** | Market Jade | `#3F8061` | `emerald-500` | In-stock indicators, payment confirmations, trust cues |
+| **Background Light** | Thanaka Paper | `#FAF7F0` | `bg-page` | Page canvas and warm surrounding surfaces |
+| **Surface Muted** | Woven Cotton | `#F3EEE4` | `surface-muted` | Secondary panels and neutral card backgrounds |
+| **Border / Divider** | Warm Sand | `#E9E1D3` | `border-light` | Card borders and structural dividers |
+| **Text Primary** | Dark Teak | `#2D2923` | `text-main` | Primary titles, prices and critical labels |
+| **Text Muted** | Soft Teak | `#766E62` | `text-muted` | Category labels, timestamps and secondary specs |
 
 ### 2.2 Typography System
 
